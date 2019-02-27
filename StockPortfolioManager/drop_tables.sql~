@@ -1,0 +1,8 @@
+--
+-- Clean the database
+--
+
+drop table portfolio_users agreement cascade constraints;
+drop table portfolio_list agreement cascade constraints;
+drop table portfolio_balance agreement cascade constraints;
+drop table portfolio_stocks agreement cascade constraints;

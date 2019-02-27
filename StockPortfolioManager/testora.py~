@@ -1,0 +1,66 @@
+#!/usr/bin/python
+
+#
+# Oracle butt-finding
+#
+#
+
+oracle_base = '/raid/oracle11g/app/oracle/product/11.2.0.1.0'
+oracle_sid = 'CS339'
+import os;
+os.putenv('ORACLE_BASE',oracle_base);
+os.putenv('ORACLE_HOME',oracle_base+'/db_1');
+os.putenv('ORACLE_SID','CS339');
+import ctypes; ctypes.cdll.LoadLibrary(oracle_base+'/db_1/lib/libclntsh.so.11.1')
+
+
+
+import cx_Oracle as ora
+import cgi
+import sys
+
+#
+# Good grief, we have to generate our own headers?  Crazy.
+#
+print 'Content-type: text/html\n\n'
+
+print "<b>Hi from Python!</b><p>"
+
+con = None
+
+try:
+	con = ora.connect("jam658/z0xM6lllV")
+	print "Successfully connected to Oracle<p>"
+	cur = con.cursor()
+	cur.execute("select * from test_table")
+	rows = cur.fetchall()
+	for row in rows:
+		print row
+		print "<p>"
+
+except ora.Error, e:
+	print "Error %s<p>" % (e.args[0])
+	sys.exit(1)
+
+finally:
+	if con:
+		con.close()
+
+
+print "<h2>What's going on?</h2>"	
+
+print "not here"
+cur.execute("select * cs339.tables")
+rows = cur.fetchall()
+print(rows)
+count = 0
+for row in rows:
+	print row
+	print count
+	count += 1
+	print "<p>"
+
+
+
+
+

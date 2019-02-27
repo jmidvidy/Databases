@@ -1,0 +1,23 @@
+import urllib2
+import json
+import ssl
+import os
+
+def main():
+    API_KEY = "7Y3D123IHEQBTS36"
+    u = urllib2.urlopen('https://www.alphavantage.co/query?datatype=json&function=GLOBAL_QUOTE&symbol=AAPL&outputsize=compact&interval=60min&apikey=' + API_KEY)
+    content = json.loads(u.read())
+    close = content["Global Quote"]["08. previous close"]
+    print(close)
+            
+    return
+
+def main2():
+    output = os.popen('quote.pl AAPL').read()
+    print output
+
+
+    return
+                
+if __name__ == "__main__":
+    main2()
