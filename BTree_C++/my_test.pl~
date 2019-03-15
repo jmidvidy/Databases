@@ -1,0 +1,25 @@
+#!/usr/bin/perl -w
+
+#$#ARGV==6 or die "usage: test.pl \"reference implementation command line\" \"your implementation command line\" keysize valsize seed num maxerrs\n";
+
+($refcmd,$testcmd,$keysize,$valsize,$maxerrs)=@ARGV;
+
+$t=time();
+$pid=$$;
+
+#cleans the 3 files
+#eval{
+#    truncate 'my_TEST.refout', 0;
+#    truncate 'my_TEST.yourout', 0;
+#}
+#or do{
+#    my $nothing;
+#}
+
+#system "gen_test_sequence.pl $keysize $valsize $seed $num > myTEST.input";
+
+system "$refcmd < my_TEST.input > my_TEST.refout";
+
+system "$testcmd < my_TEST.input > my_TEST.yourout";
+
+system "compare.pl my_TEST.input my_TEST.refout my_TEST.yourout $maxerrs";
